@@ -250,7 +250,7 @@ const Hero = React.forwardRef<HTMLElement, HeroProps>(
           )}
         </div>
 
-        <style jsx>{`
+        <style>{`
           .slider::-webkit-slider-thumb {
             appearance: none;
             width: 16px;

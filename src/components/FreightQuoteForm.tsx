@@ -1,15 +1,14 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useForm } from 'react-hook-form';
 import { zodResolver } from '@hookform/resolvers/zod';
 import * as z from 'zod';
 import { Button } from '@/components/ui/button';
 import { Input } from '@/components/ui/input';
-import { Label } from '@/components/ui/label';
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from '@/components/ui/select';
 import { Textarea } from '@/components/ui/textarea';
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from '@/components/ui/card';
 import { Form, FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/components/ui/form';
-import { Calendar, CalendarIcon, Clock, MapPin, Package, Phone, Mail, User, Truck, Weight, Ruler } from 'lucide-react';
+import { Calendar, CalendarIcon, MapPin, Package, User, Truck, Ruler } from 'lucide-react';
 import { ChevronUp, ChevronDown } from 'lucide-react';
 import { Popover, PopoverContent, PopoverTrigger } from '@/components/ui/popover';
 import { Calendar as CalendarComponent } from '@/components/ui/calendar';
@@ -99,7 +98,7 @@ const isTestPattern = (value: string): boolean => {
   return testPatterns.some(pattern => pattern.test(value));
 };
 
-const validateNumericInput = (value: number, fieldName: string): string | null => {
+const validateNumericInput = (value: number): string | null => {
   const valueStr = value.toString();
   
   if (isRepeatedCharacters(valueStr)) {
@@ -150,7 +149,7 @@ const formSchema = z.object({
   }
   
   // Anti-troll validation (only on submit)
-  if (validateNumericInput(data.truckQty, 'truck quantity')) {
+  if (validateNumericInput(data.truckQty)) {
     ctx.addIssue({
       path: ['truckQty'],
       code: z.ZodIssueCode.custom,
@@ -158,7 +157,7 @@ const formSchema = z.object({
     });
   }
   
-  if (validateNumericInput(data.grossWeight, 'weight')) {
+  if (validateNumericInput(data.grossWeight)) {
     ctx.addIssue({
       path: ['grossWeight'],
       code: z.ZodIssueCode.custom,
@@ -167,7 +166,7 @@ const formSchema = z.object({
   }
   
   ['cargoLength', 'cargoWidth', 'cargoHeight'].forEach((field) => {
-    if (validateNumericInput(data[field as keyof typeof data] as number, field)) {
+    if (validateNumericInput(data[field as keyof typeof data] as number)) {
       ctx.addIssue({
         path: [field],
         code: z.ZodIssueCode.custom,
@@ -232,20 +231,6 @@ export default function FreightQuoteForm() {
   const watchedWidth = form.watch('cargoWidth');
   const watchedHeight = form.watch('cargoHeight');
   
-  // Helper function to validate field on blur
-  const validateFieldOnBlur = (fieldName: string, value: number) => {
-    const trollError = validateNumericInput(value, fieldName);
-    if (trollError) {
-      setValidationErrors(prev => ({ ...prev, [fieldName]: trollError }));
-    } else {
-      setValidationErrors(prev => {
-        const newErrors = { ...prev };
-        delete newErrors[fieldName];
-        return newErrors;
-      });
-    }
-  };
-
   // Helper function to validate name on blur
   const validateNameOnBlur = (name: string) => {
     const error = validateFullName(name);
