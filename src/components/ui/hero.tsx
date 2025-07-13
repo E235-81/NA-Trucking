@@ -132,7 +132,6 @@ const Hero = React.forwardRef<HTMLElement, HeroProps>(
           <source src="https://wp3qshs4sh.ufs.sh/f/CK4jwRqb6gnIJGa1JV6nyWwI6E1z9hlBqTMUe0ivJ2VDjYRm" type="video/mp4" />
           <source src="https://wp3qshs4sh.ufs.sh/f/CK4jwRqb6gnIS4WqeJsgceLjEbMP3uC9rQKsqUFdVNpw05vf" type="video/mp4" />
           {/* Fallback for browsers that don't support the video format */}
-          <div className="absolute inset-0 bg-gradient-to-br from-gray-900 via-black to-gray-800" />
         </video>
 
         {/* Manual play button for when autoplay fails */}
