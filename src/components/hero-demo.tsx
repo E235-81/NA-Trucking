@@ -15,6 +15,11 @@ function HeroDemo() {
           label: "Get a Quote",
           href: "/buttons",
           variant: "default"
+        },
+        {
+          label: "Test Slug",
+          href: "/centuriontruckinginc",
+          variant: "outline"
         }
       ]}
       titleClassName="text-5xl md:text-6xl font-extrabold"
