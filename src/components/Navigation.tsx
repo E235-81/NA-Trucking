@@ -30,9 +30,9 @@ export function Navigation() {
                 <span>Home</span>
               </Link>
               <Link
-                to="/buttons"
+                to="/freight-quote"
                 className={`flex items-center space-x-2 px-3 py-2 rounded-lg transition-colors ${
-                  location.pathname === '/buttons' 
+                  location.pathname === '/freight-quote'
                     ? 'bg-white/10 text-white' 
                     : 'text-gray-300 hover:text-white hover:bg-white/5'
                 }`}
@@ -58,9 +58,9 @@ export function Navigation() {
               <Home className="h-5 w-5" />
             </Link>
             <Link
-              to="/buttons"
+              to="/freight-quote"
               className={`p-2 rounded-lg transition-colors ${
-                location.pathname === '/buttons' 
+                location.pathname === '/freight-quote'
                   ? 'bg-white/10 text-white' 
                   : 'text-gray-300 hover:text-white hover:bg-white/5'
               }`}

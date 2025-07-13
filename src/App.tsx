@@ -1,7 +1,7 @@
 import './App.css';
 import { Routes, Route } from 'react-router-dom';
 import { HomePage } from './pages/HomePage';
-import { ButtonShowcasePage } from './pages/ButtonShowcasePage';
+import { FreightQuotePage } from './pages/FreightQuotePage';
 import { Navigation } from './components/Navigation';
 import { Toaster } from './components/ui/toaster';
 
@@ -11,7 +11,7 @@ function App() {
       <Navigation />
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route path="/buttons" element={<ButtonShowcasePage />} />
+        <Route path="/freight-quote" element={<FreightQuotePage />} />
       </Routes>
       <Toaster />
     </div>
