@@ -115,7 +115,7 @@ const validateNumericInput = (value: number): string | null => {
 const formSchema = z.object({
   clientName: z.string()
     .min(1, 'Name is required')
-    .refine((name) => {
+    .refine((name: string) => {
       const error = validateFullName(name);
       return error === null;
     }, {
@@ -138,7 +138,7 @@ const formSchema = z.object({
   cargoWidth: z.number().min(3, 'Dimensions must fit inside a standard 53\' trailer').max(8.5, 'Dimensions must fit inside a standard 53\' trailer'),
   cargoHeight: z.number().min(3, 'Dimensions must fit inside a standard 53\' trailer').max(9, 'Dimensions must fit inside a standard 53\' trailer'),
   dimensionUnit: z.enum(['feet', 'inches']),
-}).superRefine((data, ctx) => {
+}).superRefine((data, ctx: z.RefinementCtx) => {
   // Cross-field validation for weight vs truck capacity
   if (data.grossWeight > data.truckQty * 45000) {
     ctx.addIssue({
@@ -166,7 +166,8 @@ const formSchema = z.object({
   }
   
   ['cargoLength', 'cargoWidth', 'cargoHeight'].forEach((field) => {
-    if (validateNumericInput(data[field as keyof typeof data] as number)) {
+    const value = data[field as keyof typeof data];
+    if (typeof value === 'number' && validateNumericInput(value)) {
       ctx.addIssue({
         path: [field],
         code: z.ZodIssueCode.custom,
